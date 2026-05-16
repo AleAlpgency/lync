@@ -3,7 +3,7 @@ export interface Guide {
   description: string
   image: string
   price: string
-  compareAt: string
+  compareAt?: string
   href: string
   highlights: string[]
 }
@@ -52,6 +52,20 @@ export const guides: Guide[] = [
       '115+ interview practice questions',
       'Scholarship strategies',
       'From a 75% scholarship recipient',
+    ],
+  },
+  {
+    title: 'How to Travel the World as a Student',
+    description:
+      'A 40-page guide breaking down Rebecca’s 5-part travel system for stretching a student budget further with points, smarter stays, destination picking, and local-first spending habits.',
+    image: '/brand/GUIDES/student-travel-formula.png',
+    price: '$19.99',
+    href: 'https://lync-events.myshopify.com/products/how-to-travel-the-world-as-a-student-the-5-part-formula-thats-saved-me-10-500',
+    highlights: [
+      'Credit card points strategy for long-haul flights',
+      'Accommodation hacks from hostels to Worldpackers',
+      'How to pick destinations where your money goes further',
+      'Slow travel and local-spending systems that cut daily costs',
     ],
   },
 ]

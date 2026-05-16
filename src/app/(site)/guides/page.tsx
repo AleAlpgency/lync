@@ -94,9 +94,11 @@ export default function GuidesPage() {
                         <span className="text-2xl font-bold text-dark">
                           {guide.price}
                         </span>
-                        <span className="text-base text-muted line-through">
-                          {guide.compareAt}
-                        </span>
+                        {guide.compareAt ? (
+                          <span className="text-base text-muted line-through">
+                            {guide.compareAt}
+                          </span>
+                        ) : null}
                       </div>
 
                       <CtaMotionA
