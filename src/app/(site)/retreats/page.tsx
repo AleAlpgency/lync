@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { ScrollReveal } from '@/components/ui/scroll-reveal'
-import { HighlightStroke } from '@/components/ui/highlight-stroke'
 import { CtaMotionLink } from '@/components/ui/cta-hover'
 import { EventCard } from '@/components/events/event-card'
 import { RetreatCardExtended } from '@/components/retreats/retreat-card-extended'
@@ -59,14 +58,7 @@ export default async function RetreatsPage() {
               Travel With Purpose
             </p>
             <h1 className="mb-2 font-display text-4xl font-semibold uppercase tracking-normal text-white sm:mb-3 sm:text-5xl md:text-7xl">
-              Our{' '}
-              <span className="relative inline-block">
-                Retreats
-                <HighlightStroke
-                  className="absolute -bottom-1 left-0 w-full"
-                  strokeWidth={5}
-                />
-              </span>
+              Our Retreats
             </h1>
             <p className="max-w-xl text-base text-white/80 sm:text-lg md:text-xl">
               Small-group retreats designed for deep connection,

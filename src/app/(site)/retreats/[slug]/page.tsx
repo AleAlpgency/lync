@@ -10,7 +10,6 @@ import {
   Mail,
 } from 'lucide-react'
 import { ScrollReveal } from '@/components/ui/scroll-reveal'
-import { HighlightStroke } from '@/components/ui/highlight-stroke'
 import SpotlightCard from '@/components/ui/spotlight-card'
 import { CtaMotionA, CtaMotionLink } from '@/components/ui/cta-hover'
 import { EventCard } from '@/components/events/event-card'
@@ -96,13 +95,7 @@ export default async function RetreatDetailPage({ params }: Props) {
               A Women&apos;s Retreat &middot; {retreat.location}
             </p>
             <h1 className="mb-2 font-display text-5xl font-semibold uppercase tracking-normal text-white sm:mb-3 sm:text-6xl md:text-8xl">
-              <span className="relative inline-block">
-                {retreat.title}
-                <HighlightStroke
-                  className="absolute -bottom-1 left-0 w-full"
-                  strokeWidth={5}
-                />
-              </span>
+              {retreat.title}
             </h1>
             <p className="mb-4 max-w-lg text-base text-white/85 sm:mb-5 sm:text-lg md:text-xl">
               {retreat.subtitle}
