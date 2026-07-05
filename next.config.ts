@@ -18,7 +18,14 @@ const nextConfig: NextConfig = {
       source: '/(.*)',
       headers: [
         { key: 'X-Content-Type-Options', value: 'nosniff' },
-        { key: 'X-Frame-Options', value: 'DENY' },
+        // Allow the Faca Studio work index to embed the site as a hover
+        // preview (replaces X-Frame-Options: DENY; frame-ancestors is the
+        // modern equivalent and supports an allowlist).
+        {
+          key: 'Content-Security-Policy',
+          value:
+            "frame-ancestors 'self' https://www.faca-studio.com https://faca-studio.com http://localhost:3000",
+        },
         { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
       ],
     },
