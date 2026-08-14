@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CtaMotionA } from '@/components/ui/cta-hover'
 import { MessageCircle } from 'lucide-react'
+import { WHATSAPP_URL } from '@/lib/constants'
 
 function WhatsAppFab() {
   const [lifted, setLifted] = useState(false)
@@ -22,7 +23,7 @@ function WhatsAppFab() {
 
   return (
     <CtaMotionA
-      href="https://wa.me/13107411846"
+      href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed right-6 z-40 rounded-full bg-[#25D366] p-3.5 text-white shadow-lg transition-all duration-300 hover:shadow-xl"

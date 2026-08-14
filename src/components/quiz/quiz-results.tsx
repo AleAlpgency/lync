@@ -2,6 +2,7 @@ import { CtaMotionLink, CtaMotionA } from '@/components/ui/cta-hover'
 import { EventCard } from '@/components/events/event-card'
 import { QuizAnswer, Event } from '@/lib/types'
 import { ArrowRight, MessageCircle, Check } from 'lucide-react'
+import { WHATSAPP_URL } from '@/lib/constants'
 
 const IDEAL_NIGHT_TO_CATEGORY: Record<string, Event['category']> = {
   'dinner-wine': 'Social',
@@ -115,7 +116,7 @@ export function QuizResults({ answers, leadInfo, events = [], embedded = false }
               Browse All Events <ArrowRight size={16} />
             </CtaMotionLink>
             <CtaMotionA
-              href="https://wa.me/13107411846?text=Hi!%20I%20just%20took%20the%20quiz%20%F0%9F%98%8A"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] text-white font-semibold py-3.5 rounded-full text-sm hover:bg-[#20bd5a] transition-colors"

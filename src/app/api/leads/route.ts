@@ -2,14 +2,17 @@ import { NextResponse } from 'next/server'
 import { buildAirtableLeadFields } from '@/lib/map-quiz-for-airtable'
 
 const AIRTABLE_API = 'https://api.airtable.com/v0'
+const MAILERLITE_API = 'https://connect.mailerlite.com/api'
+
+type Lead = {
+  name: string
+  email: string
+  phone?: string
+  nationality: string
+}
 
 type Body = {
-  lead: {
-    name: string
-    email: string
-    phone?: string
-    nationality: string
-  }
+  lead: Lead
   answers: Record<string, string | string[]>
   source: 'homepage' | 'quiz-page'
 }
@@ -22,14 +25,68 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
+async function saveToAirtable(
+  pat: string,
+  baseId: string,
+  table: string,
+  lead: Lead,
+  answers: Body['answers'],
+  source: Body['source']
+): Promise<void> {
+  const fields = buildAirtableLeadFields(lead, answers, source)
+  const res = await fetch(`${AIRTABLE_API}/${baseId}/${encodeURIComponent(table)}`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${pat}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ records: [{ fields }] }),
+  })
+  if (!res.ok) throw new Error(`Airtable ${res.status}: ${await res.text()}`)
+}
+
+async function saveToMailerLite(
+  key: string,
+  groupId: string | undefined,
+  lead: Lead,
+  source: Body['source']
+): Promise<void> {
+  const res = await fetch(`${MAILERLITE_API}/subscribers`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      email: lead.email,
+      fields: {
+        name: lead.name,
+        phone: lead.phone ?? '',
+        nationality: lead.nationality,
+        signup_source: source,
+      },
+      ...(groupId ? { groups: [groupId] } : {}),
+    }),
+  })
+  if (!res.ok) throw new Error(`MailerLite ${res.status}: ${await res.text()}`)
+}
+
 export async function POST(req: Request) {
   const pat = process.env.AIRTABLE_PAT
   const baseId = process.env.AIRTABLE_BASE_ID
   const table = process.env.AIRTABLE_TABLE_NAME ?? 'Leads'
+  const mlKey = process.env.MAILERLITE_API_KEY
+  const mlGroup = process.env.MAILERLITE_GROUP_ID
 
-  if (!pat || !baseId) {
+  const airtableReady = isNonEmptyString(pat) && isNonEmptyString(baseId)
+  const mailerliteReady = isNonEmptyString(mlKey)
+
+  // Each destination is independent, so one missing credential no longer
+  // throws the lead away. Only a total absence of destinations is an error.
+  if (!airtableReady && !mailerliteReady) {
     return NextResponse.json(
-      { error: 'Missing AIRTABLE_PAT or AIRTABLE_BASE_ID' },
+      { error: 'No lead destination configured' },
       { status: 500 }
     )
   }
@@ -67,26 +124,36 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'answers object required' }, { status: 400 })
   }
 
-  const fields = buildAirtableLeadFields(lead, answers, source)
-
-  const url = `${AIRTABLE_API}/${baseId}/${encodeURIComponent(table)}`
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${pat}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ records: [{ fields }] }),
-  })
-
-  if (!res.ok) {
-    const detail = await res.text()
-    console.error('Airtable error', res.status, detail)
-    return NextResponse.json(
-      { error: 'Could not save lead', detail },
-      { status: 502 }
-    )
+  const targets: Array<{ name: string; run: Promise<void> }> = []
+  if (airtableReady) {
+    targets.push({
+      name: 'airtable',
+      run: saveToAirtable(pat as string, baseId as string, table, lead, answers, source),
+    })
+  }
+  if (mailerliteReady) {
+    targets.push({
+      name: 'mailerlite',
+      run: saveToMailerLite(mlKey as string, mlGroup, lead, source),
+    })
   }
 
-  return NextResponse.json({ ok: true })
+  const settled = await Promise.allSettled(targets.map((t) => t.run))
+  const saved: string[] = []
+  const failed: string[] = []
+
+  settled.forEach((result, i) => {
+    if (result.status === 'fulfilled') {
+      saved.push(targets[i].name)
+    } else {
+      failed.push(targets[i].name)
+      console.error(`Lead destination ${targets[i].name} failed`, result.reason)
+    }
+  })
+
+  if (saved.length === 0) {
+    return NextResponse.json({ error: 'Could not save lead', failed }, { status: 502 })
+  }
+
+  return NextResponse.json({ ok: true, saved, failed })
 }
