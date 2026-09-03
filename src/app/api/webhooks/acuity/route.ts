@@ -13,10 +13,12 @@ interface AcuityAppointment {
 }
 
 export async function POST(req: Request) {
-  const userId = process.env.ACUITY_USER_ID
-  const apiKey = process.env.ACUITY_API_KEY
-  const mlKey = process.env.MAILERLITE_API_KEY
-  const groupId = process.env.MAILERLITE_EVENT_GROUP_ID
+  // trim: the stored Vercel values can carry a pasted trailing newline, which
+  // silently breaks the HMAC comparison below (Acuity signs with the clean key)
+  const userId = process.env.ACUITY_USER_ID?.trim()
+  const apiKey = process.env.ACUITY_API_KEY?.trim()
+  const mlKey = process.env.MAILERLITE_API_KEY?.trim()
+  const groupId = process.env.MAILERLITE_EVENT_GROUP_ID?.trim()
 
   if (!userId || !apiKey || !mlKey || !groupId) {
     console.error('[acuity-webhook] missing env configuration')
