@@ -118,7 +118,7 @@ export default async function RetreatsPage() {
               href="/quiz"
               className="inline-flex items-center gap-2 rounded-full bg-lync px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-lync-dark"
             >
-              Find Your Experience <ArrowRight size={20} />
+              Sign Up <ArrowRight size={20} />
             </CtaMotionLink>
           </ScrollReveal>
         </div>

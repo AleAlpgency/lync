@@ -90,7 +90,7 @@ export function HeroSection() {
                 className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#5a96f5] to-lync-dark px-8 py-4 text-lg font-semibold text-white shadow-sm transition-all duration-200 hover:shadow-lg hover:shadow-lync/30"
               >
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
-                <ShinyText text="Find Your Experience" color="#ffffff" shineColor="#a8d4ff" speed={4} />
+                <ShinyText text="Sign Up" color="#ffffff" shineColor="#a8d4ff" speed={4} />
                 <ArrowRight size={20} className="relative transition-transform group-hover:translate-x-0.5" />
               </Link>
               <SpotlightCard

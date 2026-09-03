@@ -88,7 +88,7 @@ export function BlogArticle({ post, otherPosts }: { post: BlogPost; otherPosts: 
               Ready to join?
             </h3>
             <p className="mx-auto mt-1.5 max-w-md text-sm leading-relaxed text-muted">
-              Take our quick quiz and we&apos;ll match you with events that fit your vibe.
+              Drop your email and we&apos;ll send you events that fit your vibe.
             </p>
             <Link
               href="/quiz"

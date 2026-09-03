@@ -2,18 +2,17 @@ import { HeroSection } from '@/components/home/hero'
 import { TrustBento } from '@/components/home/trust-bento'
 import { ThisMonth } from '@/components/home/this-month'
 import { WhyLync } from '@/components/home/why-lync'
-import { QuizSection } from '@/components/home/quiz-section'
+import { NewsletterSection } from '@/components/home/newsletter-section'
 import { EventsShowcase } from '@/components/home/events-showcase'
 import { Testimonials } from '@/components/home/testimonials'
 import { FaqSection } from '@/components/home/faq-section'
 import { BrandStripMarquee } from '@/components/home/brand-strip-marquee'
 import { BlogSection } from '@/components/home/blog-section'
 import { CtaSection } from '@/components/home/cta-section'
-import { getUpcomingEvents } from '@/lib/acuity'
 import { getAllBlogs } from '@/lib/sanity/fetchers'
 
 export default async function Home() {
-  const [events, blogPosts] = await Promise.all([getUpcomingEvents(), getAllBlogs()])
+  const blogPosts = await getAllBlogs()
 
   return (
     <>
@@ -22,7 +21,7 @@ export default async function Home() {
       <TrustBento />
       <ThisMonth />
       <WhyLync />
-      <QuizSection events={events} />
+      <NewsletterSection />
       <EventsShowcase />
       <Testimonials />
       <FaqSection />

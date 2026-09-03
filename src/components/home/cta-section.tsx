@@ -37,7 +37,7 @@ export function CtaSection() {
                   Ready to find your people in&nbsp;Madrid?
                 </h2>
                 <p className="mx-auto mt-3 max-w-lg text-pretty text-sm leading-relaxed text-white/90 md:mt-4 md:text-base">
-                  Take the quick quiz and we&apos;ll point you toward events
+                  Drop your email and we&apos;ll point you toward events
                   and energy that fit you. No pressure, just a warmer
                   way&nbsp;in.
                 </p>

@@ -70,14 +70,14 @@ export default async function EventsPage() {
               Don&apos;t See Your Vibe?
             </h2>
             <p className="mx-auto mb-8 max-w-2xl text-xl text-white/70">
-              New events drop every month. Take the quiz so we can match
-              you with experiences that fit your energy.
+              New events drop every month. Sign up and we&apos;ll send them
+              to you first.
             </p>
             <CtaMotionA
               href="/quiz"
               className="inline-flex items-center gap-2 rounded-full bg-lync px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-lync-dark"
             >
-              Find Your Experience <ArrowRight size={20} />
+              Sign Up <ArrowRight size={20} />
             </CtaMotionA>
           </ScrollReveal>
         </div>

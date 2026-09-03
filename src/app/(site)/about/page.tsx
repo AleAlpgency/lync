@@ -84,7 +84,7 @@ export default function AboutPage() {
                 Ready to Join Us?
               </h2>
               <p className="text-xl text-muted mb-8 max-w-2xl mx-auto">
-                Your Madrid friend group is waiting. Take the quiz and find your perfect events.
+                Your Madrid friend group is waiting. Sign up and we&apos;ll send you what&apos;s coming up.
               </p>
               <CtaMotionLink
                 href="/quiz"

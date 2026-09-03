@@ -58,16 +58,16 @@ export function EventsGrid({ events }: EventsGridProps) {
             New Events Coming Soon!
           </h3>
           <p className="mb-6 text-sm leading-relaxed text-muted">
-            We&apos;re cooking up the next round of events. Take the
-            quiz so we can match you with experiences that fit your
-            energy, or join our WhatsApp group to be the first to know.
+            We&apos;re cooking up the next round of events. Sign up so we
+            can send them to you first, or join our WhatsApp group to be
+            the first to know.
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link
               href="/quiz"
               className="inline-flex items-center gap-2 rounded-full bg-lync px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-lync-dark"
             >
-              Take the Quiz <ArrowRight size={16} />
+              Sign Up <ArrowRight size={16} />
             </Link>
           </div>
         </div>

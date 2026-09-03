@@ -87,7 +87,7 @@ export function Footer() {
                 </h4>
                 <ul className="space-y-2">
                   {[
-                    { href: '/quiz', label: 'Take the Quiz' },
+                    { href: '/quiz', label: 'Sign Up' },
                     { href: 'https://www.instagram.com/lyncevents/', label: 'Instagram', external: true },
                     { href: 'https://www.tiktok.com/@lyncevents', label: 'TikTok', external: true },
                   ].map((link) => (
