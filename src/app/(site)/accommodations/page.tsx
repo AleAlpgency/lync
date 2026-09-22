@@ -259,6 +259,22 @@ export default function AccommodationsPage() {
         </div>
       </section>
 
+      {/* ── Student Housing Abroad panel ──────────────── */}
+      <section className="bg-cream py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <ScrollReveal>
+            <h2 className="mb-14 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
+              Find Student Housing Abroad
+            </h2>
+          </ScrollReveal>
+          {/* Partner embed: its CSP only allows lyncevents.com, so it stays blank on previews and localhost. No sandbox attribute, the buttons need popups. */}
+          <iframe
+            title="Find student housing abroad"
+            src="https://www.studenthousingabroad.com/embed/affiliate/LyncEvents"
+            className="h-[1320px] w-full border-0 max-[640px]:h-[1400px] max-[360px]:h-[1580px]"
+          />
+        </div>
+      </section>
     </>
   )
 }
