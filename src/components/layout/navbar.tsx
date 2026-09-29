@@ -37,6 +37,7 @@ export function Navbar() {
   const isHeroNav =
     pathname === '/' ||
     pathname === '/accommodations' ||
+    pathname === '/membership' ||
     pathname === '/events'
   /** Use dark (black text, blue logo) on inner pages or when scrolled */
   const dark = scrolled || !isHeroNav
@@ -51,6 +52,7 @@ export function Navbar() {
     { href: '/study-abroad', label: 'Study Abroad' },
     { href: '/guides', label: 'Guides' },
     { href: '/accommodations', label: 'Accommodations' },
+    { href: '/membership', label: 'Membership' },
   ]
 
   return (
@@ -98,7 +100,7 @@ export function Navbar() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`inline-flex items-center justify-center text-[13px] font-semibold leading-none lg:text-sm ${DESKTOP_LINK_PAD} ${linkClass} ${heroHover}`}
+                      className={`inline-flex items-center justify-center whitespace-nowrap text-[13px] font-semibold leading-none lg:text-sm ${DESKTOP_LINK_PAD} ${linkClass} ${heroHover}`}
                     >
                       {link.label}
                     </Link>
@@ -109,7 +111,7 @@ export function Navbar() {
               <div className="flex justify-self-end">
                 <Link
                   href="/quiz"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-b from-[#5a96f5] to-lync-dark px-3.5 py-1.5 text-[13px] font-semibold text-white shadow-sm transition-shadow duration-150 hover:shadow-md lg:px-4 lg:text-sm"
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-gradient-to-b from-[#5a96f5] to-lync-dark px-3.5 py-1.5 text-[13px] font-semibold text-white shadow-sm transition-shadow duration-150 hover:shadow-md lg:px-4 lg:text-sm"
                 >
                   Get Started <ArrowRight size={14} strokeWidth={2.25} />
                 </Link>
