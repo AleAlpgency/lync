@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { ArrowRight, Check } from 'lucide-react'
 import { ScrollReveal } from '@/components/ui/scroll-reveal'
 import { CtaMotionLink } from '@/components/ui/cta-hover'
+import { MemberCard } from '@/components/membership/member-card'
 
 // Stripe Payment Link for the €25/month subscription (Lync Events LLC account)
 const CHECKOUT_URL = 'https://buy.stripe.com/fZu7sK87Yb8Y6dTeQa2Ry0j'
@@ -83,29 +84,41 @@ export default function MembershipPage() {
       </section>
 
       <section className="bg-cream py-16 md:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
           <ScrollReveal>
-            <h2 className="mb-14 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
-              What Members Get
-            </h2>
+            <div className="rounded-3xl border border-border bg-white p-7 shadow-xl sm:p-9">
+              <p className="mb-1 text-sm font-semibold uppercase tracking-widest text-lync">
+                LYNC Membership
+              </p>
+              <p className="mb-6 font-display text-6xl font-semibold tracking-normal">
+                €25<span className="text-xl font-normal text-muted"> / month</span>
+              </p>
+              <ul className="mb-8 space-y-4">
+                {perks.map((p) => (
+                  <li key={p.title} className="flex gap-3">
+                    <Check size={20} className="mt-0.5 shrink-0 text-lync" />
+                    <span>
+                      <span className="block font-semibold">{p.title}</span>
+                      <span className="block text-sm text-muted">{p.body}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <JoinButton className="w-full justify-center bg-lync text-white hover:bg-lync-dark" />
+              <p className="mt-3 text-center text-sm text-muted">Billed monthly. Cancel anytime by email.</p>
+            </div>
           </ScrollReveal>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {perks.map((p, i) => (
-              <ScrollReveal key={p.title} delay={i * 0.06}>
-                <div className="h-full rounded-2xl border border-border bg-white p-6">
-                  <Check size={22} className="mb-3 text-lync" />
-                  <h3 className="mb-2 font-display text-lg font-semibold uppercase tracking-normal">
-                    {p.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted">{p.body}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <JoinButton className="bg-lync text-white hover:bg-lync-dark" />
-            <p className="mt-3 text-sm text-muted">€25 a month, billed monthly.</p>
-          </div>
+          <ScrollReveal delay={0.1}>
+            <div className="flex flex-col items-center">
+              <div className="relative flex aspect-[9/19] w-full max-w-[320px] items-center rounded-[3rem] border-[10px] border-dark bg-cream px-4 shadow-2xl">
+                <span className="absolute top-3 left-1/2 h-6 w-24 -translate-x-1/2 rounded-full bg-dark" />
+                <MemberCard name="Your name" since="Today" active />
+              </div>
+              <p className="mt-6 max-w-xs text-center text-muted">
+                Your digital member card. Show it on your phone at partner spots and LYNC events.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
