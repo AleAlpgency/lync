@@ -46,3 +46,4 @@ sanity.cli.js
 *.tsbuildinfo
 next-env.d.ts
 data/shots/
+drafts/

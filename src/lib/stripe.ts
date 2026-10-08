@@ -2,6 +2,11 @@ import crypto from 'node:crypto'
 
 const STRIPE_API = 'https://api.stripe.com/v1'
 
+// The account also sells other subscriptions (Creator Club), so cards and the
+// welcome flow only count the LYNC Membership price and its payment link.
+export const MEMBERSHIP_PRICE_ID = 'price_1UL6w4B9S4BqNdLtASquxH5I'
+export const MEMBERSHIP_PAYMENT_LINK_ID = 'plink_1UL6wCB9S4BqNdLtcq2iGMDc'
+
 /** GET a Stripe API path with the server-only secret key. Returns null on any failure. */
 export async function stripeGet<T>(path: string): Promise<T | null> {
   const key = process.env.STRIPE_SECRET_KEY?.trim()
@@ -47,6 +52,11 @@ export interface Subscription {
   status: string
   start_date: number
   customer: { name: string | null; email: string | null }
+  items: { data: { price: { id: string } }[] }
+}
+
+export function isMembership(sub: Subscription): boolean {
+  return sub.items.data.some((i) => i.price.id === MEMBERSHIP_PRICE_ID)
 }
 
 /** Card URLs use the subscription id: random, unguessable, and live-checkable. */

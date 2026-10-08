@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { isSubscriptionId, stripeGet, type Subscription } from '@/lib/stripe'
+import { isMembership, isSubscriptionId, stripeGet, type Subscription } from '@/lib/stripe'
 import { LiveClock } from './live-clock'
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default async function MemberCard({ params }: { params: Promise<{ id: str
   const { id } = await params
   if (!isSubscriptionId(id)) notFound()
   const sub = await stripeGet<Subscription>(`/subscriptions/${id}?expand[]=customer`)
-  if (!sub) notFound()
+  if (!sub || !isMembership(sub)) notFound()
 
   // past_due keeps perks during Stripe's retry window; anything else is lapsed.
   const active = ['active', 'trialing', 'past_due'].includes(sub.status)

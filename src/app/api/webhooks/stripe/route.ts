@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server'
 import { SITE_URL } from '@/lib/constants'
-import { verifyStripeSignature } from '@/lib/stripe'
+import { MEMBERSHIP_PAYMENT_LINK_ID, verifyStripeSignature } from '@/lib/stripe'
 
 const MAILERLITE_API = 'https://connect.mailerlite.com/api'
 
 interface CheckoutSession {
   mode: string
+  payment_link: string | null
   subscription: string | null
   customer_details: { email: string | null; name: string | null } | null
 }
@@ -28,9 +29,13 @@ export async function POST(req: Request) {
   const event = JSON.parse(body) as { type: string; data: { object: CheckoutSession } }
   const session = event.data.object
 
-  // Only new membership checkouts. Other payment links on the account are
-  // one-off payments (mode "payment") and must not land in the Members group.
-  if (event.type !== 'checkout.session.completed' || session.mode !== 'subscription' || !session.subscription) {
+  // Only new membership checkouts. The account's other payment links (events,
+  // Creator Club) must not land in the Members group.
+  if (
+    event.type !== 'checkout.session.completed' ||
+    session.payment_link !== MEMBERSHIP_PAYMENT_LINK_ID ||
+    !session.subscription
+  ) {
     return NextResponse.json({ ok: true })
   }
 
