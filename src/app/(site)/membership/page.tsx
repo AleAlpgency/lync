@@ -11,15 +11,43 @@ const perks = [
   { title: 'Bring a friend', body: 'Bring a friend to select events once a month. Email us to pick the event.' },
   { title: '1 free event a month', body: 'One select LYNC event on us, every month.' },
   { title: 'First access', body: 'Early access to new LYNC events, including ones that sell out.' },
-  { title: '10–20% off partner stores', body: 'Member discounts at a list of select Madrid stores.' },
+  { title: '10–20% off partner stores', body: 'Member discounts at our partners, listed below.' },
   { title: '€50 off housing', body: 'Money off your booking with our partner Student Housing Abroad.' },
   { title: 'Madrid Start Pack', body: 'Our guide to settling into Madrid, from neighbourhoods to your first week.' },
+]
+
+// Member discounts as Rebecca listed them. Codes go to members privately, not here.
+const partners = [
+  { name: 'Acupuncture', deal: '2-for-1 (bring a friend) and no first-visit fee' },
+  { name: 'Epico Café', deal: '10% off' },
+  { name: 'Ana Hache', deal: '15% off' },
+  { name: 'Student Housing Abroad', deal: '€50 off' },
+  { name: 'Visa help', deal: '10% off' },
+  { name: 'Brod Bakery', deal: '10% off' },
+  { name: 'Masamune', deal: '10% off' },
+  { name: 'BFF Barre', deal: '10% off, or 2 classes for €33' },
+  { name: 'Guest Ready apartments', deal: '10% off stays in Portugal, France, Spain, the UK and Dubai' },
+  { name: 'OBE', deal: '10% off' },
+  { name: 'Laser Maria', deal: '10% off' },
 ]
 
 export const metadata: Metadata = {
   title: 'Membership',
   description:
     'LYNC Membership, €25/month: a free event every month, bring a friend, first access to sold-out events, partner discounts and the Madrid Start Pack guide.',
+}
+
+function JoinButton({ className }: { className: string }) {
+  return (
+    <CtaMotionLink
+      href={CHECKOUT_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-2 rounded-full px-8 py-4 text-lg font-semibold transition-colors ${className}`}
+    >
+      Become a member <ArrowRight size={20} />
+    </CtaMotionLink>
+  )
 }
 
 export default function MembershipPage() {
@@ -45,6 +73,7 @@ export default function MembershipPage() {
             <p className="max-w-xl text-lg text-white/80 md:text-xl">
               More events, more friends, more of Madrid. €25 a month.
             </p>
+            <JoinButton className="mt-7 bg-lync text-white hover:bg-lync-dark" />
           </ScrollReveal>
         </div>
       </section>
@@ -69,6 +98,31 @@ export default function MembershipPage() {
               </ScrollReveal>
             ))}
           </div>
+          <div className="mt-12 text-center">
+            <JoinButton className="bg-lync text-white hover:bg-lync-dark" />
+            <p className="mt-3 text-sm text-muted">€25 a month, billed monthly.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8">
+          <ScrollReveal>
+            <h2 className="mb-4 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
+              Partner Discounts
+            </h2>
+            <p className="mx-auto mb-10 max-w-xl text-center text-lg text-muted">
+              Show your member card to get these.
+            </p>
+          </ScrollReveal>
+          <ul className="divide-y divide-border rounded-2xl border border-border bg-white">
+            {partners.map((p) => (
+              <li key={p.name} className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                <span className="font-semibold">{p.name}</span>
+                <span className="text-sm text-muted sm:text-right">{p.deal}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -81,14 +135,7 @@ export default function MembershipPage() {
             <p className="mx-auto mb-8 max-w-xl text-lg text-white/80">
               Billed monthly. Secure checkout by Stripe.
             </p>
-            <CtaMotionLink
-              href={CHECKOUT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-semibold text-dark transition-colors hover:bg-cream"
-            >
-              Become a member <ArrowRight size={20} />
-            </CtaMotionLink>
+            <JoinButton className="bg-white text-dark hover:bg-cream" />
           </ScrollReveal>
         </div>
       </section>
