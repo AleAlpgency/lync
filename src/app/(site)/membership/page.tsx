@@ -18,17 +18,21 @@ const perks = [
 
 // Member discounts as Rebecca listed them. Codes go to members privately, not here.
 const partners = [
-  { name: 'Acupuncture', deal: '2-for-1 (bring a friend) and no first-visit fee' },
-  { name: 'Epico Café', deal: '10% off' },
-  { name: 'Ana Hache', deal: '15% off' },
-  { name: 'Student Housing Abroad', deal: '€50 off' },
-  { name: 'Visa help', deal: '10% off' },
-  { name: 'Brod Bakery', deal: '10% off' },
-  { name: 'Masamune', deal: '10% off' },
-  { name: 'BFF Barre', deal: '10% off, or 2 classes for €33' },
-  { name: 'Guest Ready apartments', deal: '10% off stays in Portugal, France, Spain, the UK and Dubai' },
-  { name: 'OBE', deal: '10% off' },
-  { name: 'Laser Maria', deal: '10% off' },
+  { name: 'LYNC events', category: 'Events', deal: '15% off all LYNC events' },
+  { name: 'Acupuncture', category: 'Wellness', deal: '2-for-1 (bring a friend) and no first-visit fee' },
+  { name: 'Epico Café', category: 'Coffee', deal: '10% off' },
+  { name: 'Masamune', category: 'Coffee', deal: '10% off' },
+  { name: 'OBE', category: 'Café', deal: '10% off' },
+  { name: 'Brod Bakery', category: 'Bakery', deal: '10% off' },
+  { name: 'Ana Hache', category: 'Nails, lashes, brows', deal: '15% off' },
+  { name: 'Amazonia Estética', category: 'Massages & beauty', deal: '15% off' },
+  { name: 'Laser Natura', category: 'Laser hair removal', deal: '10% off' },
+  { name: 'BFF Barre', category: 'Barre classes', deal: '10% off, or 2 classes for €33' },
+  { name: 'Ventura', category: 'Events & parties', deal: '10% off' },
+  { name: 'Student Housing Abroad', category: 'Housing', deal: '€50 off' },
+  { name: 'Intellete', category: 'Visa & study abroad', deal: '10% off' },
+  { name: 'IE Navigator Blueprint', category: 'Guide', deal: '€20 off' },
+  { name: 'Guest Ready', category: 'Travel', deal: '10% off apartments in Portugal, France, Spain, the UK and Dubai' },
 ]
 
 export const metadata: Metadata = {
@@ -118,7 +122,10 @@ export default function MembershipPage() {
           <ul className="divide-y divide-border rounded-2xl border border-border bg-white">
             {partners.map((p) => (
               <li key={p.name} className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-                <span className="font-semibold">{p.name}</span>
+                <span>
+                  <span className="block font-semibold">{p.name}</span>
+                  <span className="block text-xs uppercase tracking-wider text-muted">{p.category}</span>
+                </span>
                 <span className="text-sm text-muted sm:text-right">{p.deal}</span>
               </li>
             ))}
