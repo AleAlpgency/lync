@@ -19,7 +19,7 @@ const perks = [
 // Member discounts as Rebecca listed them. Codes go to members privately, not here.
 const partners = [
   { name: 'LYNC events', category: 'Events', deal: '15% off all LYNC events' },
-  { name: 'Acupuncture', category: 'Wellness', deal: '2-for-1 (bring a friend) and no first-visit fee' },
+  { name: 'Madrid Community Acupuncture', category: 'Acupuncture', deal: '2-for-1 (bring a friend) and no first-visit fee' },
   { name: 'Epico Café', category: 'Coffee', deal: '10% off' },
   { name: 'Masamune', category: 'Coffee', deal: '10% off' },
   { name: 'OBE', category: 'Café', deal: '10% off' },
