@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, BatteryFull, Check, SignalHigh, Wifi } from 'lucide-react'
 import { ScrollReveal } from '@/components/ui/scroll-reveal'
 import { CtaMotionLink } from '@/components/ui/cta-hover'
 import { MemberCard } from '@/components/membership/member-card'
@@ -60,8 +60,8 @@ export default function MembershipPage() {
     <>
       <section className="relative flex h-[70vh] min-h-[480px] items-end">
         <Image
-          src="/brand/COMMUNITY/social-bar-lounge-large-group.webp"
-          alt="LYNC members at a social evening"
+          src="/brand/COMMUNITY/craft-night-group-table.webp"
+          alt="LYNC members at a craft night"
           fill
           priority
           className="object-cover object-center"
@@ -75,7 +75,7 @@ export default function MembershipPage() {
             <h1 className="mb-3 font-display text-5xl font-semibold uppercase tracking-normal text-white md:text-7xl">
               LYNC Membership
             </h1>
-            <p className="max-w-xl text-lg text-white/80 md:text-xl">
+            <p className="max-w-2xl text-xl text-white/85 md:text-2xl">
               More events, more friends, more of Madrid. €25 a month.
             </p>
             <JoinButton className="mt-7 bg-lync text-white hover:bg-lync-dark" />
@@ -98,8 +98,8 @@ export default function MembershipPage() {
                   <li key={p.title} className="flex gap-3">
                     <Check size={20} className="mt-0.5 shrink-0 text-lync" />
                     <span>
-                      <span className="block font-semibold">{p.title}</span>
-                      <span className="block text-sm text-muted">{p.body}</span>
+                      <span className="block text-lg font-semibold">{p.title}</span>
+                      <span className="block text-[15px] leading-relaxed text-muted">{p.body}</span>
                     </span>
                   </li>
                 ))}
@@ -110,9 +110,37 @@ export default function MembershipPage() {
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <div className="flex flex-col items-center">
-              <div className="relative flex aspect-[9/19] w-full max-w-[320px] items-center rounded-[3rem] border-[10px] border-dark bg-cream px-4 shadow-2xl">
-                <span className="absolute top-3 left-1/2 h-6 w-24 -translate-x-1/2 rounded-full bg-dark" />
-                <MemberCard name="Your name" since="Today" active />
+              {/* Phone mockup: bezel, side buttons, status bar, island, home bar */}
+              <div className="relative aspect-[9/19.5] w-full max-w-[310px] rounded-[3.25rem] bg-neutral-900 p-[11px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.45),inset_0_0_0_2px_#3a3a3a]">
+                <span className="absolute top-[18%] -left-[3px] h-7 w-[3px] rounded-l bg-neutral-700" />
+                <span className="absolute top-[26%] -left-[3px] h-12 w-[3px] rounded-l bg-neutral-700" />
+                <span className="absolute top-[35%] -left-[3px] h-12 w-[3px] rounded-l bg-neutral-700" />
+                <span className="absolute top-[28%] -right-[3px] h-20 w-[3px] rounded-r bg-neutral-700" />
+                <div className="relative flex h-full flex-col overflow-hidden rounded-[2.6rem] bg-gradient-to-b from-[#f7f4ee] to-cream">
+                  <span className="absolute top-2.5 left-1/2 h-7 w-24 -translate-x-1/2 rounded-full bg-black" />
+                  <div className="flex items-center justify-between px-7 pt-3.5 text-[13px] font-semibold text-dark">
+                    <span>9:41</span>
+                    <span className="flex items-center gap-1">
+                      <SignalHigh size={15} strokeWidth={2.5} />
+                      <Wifi size={15} strokeWidth={2.5} />
+                      <BatteryFull size={18} strokeWidth={2} />
+                    </span>
+                  </div>
+                  <p className="px-5 pt-7 pb-4 text-2xl font-bold text-dark">Member card</p>
+                  <div className="px-3">
+                    <MemberCard name="Your name" since="Today" active />
+                  </div>
+                  <p className="px-5 pt-6 pb-2 text-xs font-semibold uppercase tracking-wider text-muted">This month</p>
+                  <div className="space-y-2 px-3">
+                    {['1 free event', 'Bring a friend'].map((t) => (
+                      <div key={t} className="flex items-center justify-between rounded-xl bg-white px-4 py-3 text-sm shadow-sm">
+                        <span className="font-semibold text-dark">{t}</span>
+                        <span className="text-xs font-semibold text-green-700">Available</span>
+                      </div>
+                    ))}
+                  </div>
+                  <span className="absolute bottom-2 left-1/2 h-[5px] w-28 -translate-x-1/2 rounded-full bg-dark/80" />
+                </div>
               </div>
               <p className="mt-6 max-w-xs text-center text-muted">
                 Your digital member card. Show it on your phone at partner spots and LYNC events.
