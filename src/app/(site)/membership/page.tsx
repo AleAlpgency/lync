@@ -11,9 +11,24 @@ const perks = [
   { title: 'Bring a friend', body: 'Bring a friend to select events once a month. Email us to pick the event.' },
   { title: '1 free event a month', body: 'One select LYNC event on us, every month.' },
   { title: 'First access', body: 'Early access to new LYNC events, including ones that sell out.' },
-  { title: '10–20% off partner stores', body: 'Member discounts at a list of select Madrid stores.' },
+  { title: '10–20% off partner stores', body: 'Member discounts at our partners, listed below.' },
   { title: '€50 off housing', body: 'Money off your booking with our partner Student Housing Abroad.' },
   { title: 'Madrid Start Pack', body: 'Our guide to settling into Madrid, from neighbourhoods to your first week.' },
+]
+
+// Member discounts as Rebecca listed them. Codes go to members privately, not here.
+const partners = [
+  { name: 'Acupuncture', deal: '2-for-1 (bring a friend) and no first-visit fee' },
+  { name: 'Epico Café', deal: '10% off' },
+  { name: 'Ana Hache', deal: '15% off' },
+  { name: 'Student Housing Abroad', deal: '€50 off' },
+  { name: 'Visa help', deal: '10% off' },
+  { name: 'Brod Bakery', deal: '10% off' },
+  { name: 'Masamune', deal: '10% off' },
+  { name: 'BFF Barre', deal: '10% off, or 2 classes for €33' },
+  { name: 'Guest Ready apartments', deal: '10% off stays in Portugal, France, Spain, the UK and Dubai' },
+  { name: 'OBE', deal: '10% off' },
+  { name: 'Laser Maria', deal: '10% off' },
 ]
 
 export const metadata: Metadata = {
@@ -69,6 +84,27 @@ export default function MembershipPage() {
               </ScrollReveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8">
+          <ScrollReveal>
+            <h2 className="mb-4 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
+              Partner Discounts
+            </h2>
+            <p className="mx-auto mb-10 max-w-xl text-center text-lg text-muted">
+              Show your member card to get these.
+            </p>
+          </ScrollReveal>
+          <ul className="divide-y divide-border rounded-2xl border border-border bg-white">
+            {partners.map((p) => (
+              <li key={p.name} className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                <span className="font-semibold">{p.name}</span>
+                <span className="text-sm text-muted sm:text-right">{p.deal}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
