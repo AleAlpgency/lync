@@ -37,6 +37,19 @@ export const metadata: Metadata = {
     'LYNC Membership, €25/month: a free event every month, bring a friend, first access to sold-out events, partner discounts and the Madrid Start Pack guide.',
 }
 
+function JoinButton({ className }: { className: string }) {
+  return (
+    <CtaMotionLink
+      href={CHECKOUT_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-2 rounded-full px-8 py-4 text-lg font-semibold transition-colors ${className}`}
+    >
+      Become a member <ArrowRight size={20} />
+    </CtaMotionLink>
+  )
+}
+
 export default function MembershipPage() {
   return (
     <>
@@ -60,6 +73,7 @@ export default function MembershipPage() {
             <p className="max-w-xl text-lg text-white/80 md:text-xl">
               More events, more friends, more of Madrid. €25 a month.
             </p>
+            <JoinButton className="mt-7 bg-lync text-white hover:bg-lync-dark" />
           </ScrollReveal>
         </div>
       </section>
@@ -83,6 +97,10 @@ export default function MembershipPage() {
                 </div>
               </ScrollReveal>
             ))}
+          </div>
+          <div className="mt-12 text-center">
+            <JoinButton className="bg-lync text-white hover:bg-lync-dark" />
+            <p className="mt-3 text-sm text-muted">€25 a month, billed monthly.</p>
           </div>
         </div>
       </section>
@@ -117,14 +135,7 @@ export default function MembershipPage() {
             <p className="mx-auto mb-8 max-w-xl text-lg text-white/80">
               Billed monthly. Secure checkout by Stripe.
             </p>
-            <CtaMotionLink
-              href={CHECKOUT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-semibold text-dark transition-colors hover:bg-cream"
-            >
-              Become a member <ArrowRight size={20} />
-            </CtaMotionLink>
+            <JoinButton className="bg-white text-dark hover:bg-cream" />
           </ScrollReveal>
         </div>
       </section>
