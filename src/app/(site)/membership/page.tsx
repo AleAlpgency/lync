@@ -116,7 +116,7 @@ export default function MembershipPage() {
               Partner Discounts
             </h2>
             <p className="mx-auto mb-10 max-w-xl text-center text-lg text-muted">
-              Show your member card to get these.
+              Living in Madrid? Stop guessing where to go. These are the spots LYNC has personally vetted, tested, and certified 📍
             </p>
           </ScrollReveal>
           <ul className="divide-y divide-border rounded-2xl border border-border bg-white">
