@@ -55,6 +55,9 @@ export interface Subscription {
   items: { data: { price: { id: string } }[] }
 }
 
+// past_due keeps perks during Stripe's retry window; anything else is lapsed.
+export const ACTIVE_STATUSES = ['active', 'trialing', 'past_due']
+
 export function isMembership(sub: Subscription): boolean {
   return sub.items.data.some((i) => i.price.id === MEMBERSHIP_PRICE_ID)
 }
