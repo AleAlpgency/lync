@@ -41,3 +41,9 @@
 - **Decision:** Retreat detail pages have a fixed bottom CTA bar that shows after scrolling past the hero and hides when the in-page pricing section or bottom CTA is in viewport. Uses `data-sticky-cta` attribute on `<html>` to coordinate with the WhatsApp FAB.
 - **Rationale:** Keeps booking action always accessible during long-scroll content, but avoids visual duplication when the user reaches the actual pricing/CTA sections.
 - **Consequences:** WhatsApp FAB uses a MutationObserver to shift up when the sticky bar is visible. Any future fixed bottom elements need to account for this z-index stacking.
+
+## ADR-008: Postgres for member card scans
+- **Date:** October 9, 2026
+- **Decision:** Partner scans of member cards are logged in a Postgres database (Neon, attached to Rebecca's Vercel project as `DATABASE_URL`). Schema and partner seed live in `db/schema.sql`; Rebecca reads the log at `/admin/scans`. Partners are identified by a per-partner PIN stored in a cookie on the staff phone.
+- **Rationale:** Rebecca asked for a real database behind her own dashboard rather than Airtable. This is the first data the site writes itself, which ADR-002 deferred until there was a need.
+- **Consequences:** Adding a partner means inserting a row in `partners` (the seed only covers the launch list). The membership page partner list in `src/app/(site)/membership/page.tsx` is separate and must be edited too.

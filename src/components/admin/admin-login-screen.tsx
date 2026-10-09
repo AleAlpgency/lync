@@ -5,6 +5,12 @@ import { useRouter } from 'next/navigation'
 import { ArrowRight, Lock } from 'lucide-react'
 import { ADMIN_STORAGE_KEY } from '@/lib/admin-auth'
 
+// Where to go after login: ?next=/admin/... if given, else the post editor.
+function nextPath() {
+  const next = new URLSearchParams(window.location.search).get('next')
+  return next?.startsWith('/admin/') ? next : '/admin/new-post'
+}
+
 export function AdminLoginScreen() {
   const router = useRouter()
   const [checked, setChecked] = useState(false)
@@ -16,7 +22,7 @@ export function AdminLoginScreen() {
   useEffect(() => {
     const stored = sessionStorage.getItem(ADMIN_STORAGE_KEY)
     if (stored) {
-      router.replace('/admin/new-post')
+      router.replace(nextPath())
       return
     }
     setChecked(true)
@@ -42,7 +48,7 @@ export function AdminLoginScreen() {
       }
 
       sessionStorage.setItem(ADMIN_STORAGE_KEY, password)
-      router.replace('/admin/new-post')
+      router.replace(nextPath())
     } catch {
       setError('Network error')
       setLoading(false)

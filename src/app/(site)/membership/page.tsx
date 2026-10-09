@@ -10,7 +10,7 @@ const CHECKOUT_URL = 'https://buy.stripe.com/fZu7sK87Yb8Y6dTeQa2Ry0j'
 
 const perks = [
   { title: 'Bring a friend', body: 'Bring a friend to select events once a month. Email us to pick the event.' },
-  { title: '1 free event a month', body: 'One select LYNC event on us, every month.' },
+  { title: '1 free event a month', body: 'One select LYNC event on us, every month. Email us to claim it.' },
   { title: 'First access', body: 'Early access to new LYNC events, including ones that sell out.' },
   { title: '10–20% off partner stores', body: 'Member discounts at our partners, listed below.' },
   { title: '€50 off housing', body: 'Money off your booking with our partner Student Housing Abroad.' },
