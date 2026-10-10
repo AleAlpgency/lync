@@ -14,9 +14,10 @@ export async function GET(req: Request) {
     sql`select r.id, r.member_name, r.created_at, p.name as partner
         from redemptions r join partners p on p.id = r.partner_id
         order by r.created_at desc limit 500`,
-    sql`select p.name, p.pin, count(r.id)::int as uses, max(r.created_at) as last_used
+    sql`select p.id, p.name, p.pin, p.category, p.deal, p.code, p.active,
+               count(r.id)::int as uses, max(r.created_at) as last_used
         from partners p left join redemptions r on r.partner_id = p.id
-        group by p.id order by uses desc, p.name`,
+        group by p.id order by p.active desc, p.sort, p.id`,
   ])
   return NextResponse.json({ scans, partners })
 }

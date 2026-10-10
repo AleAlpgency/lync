@@ -4,6 +4,7 @@ import { ACTIVE_STATUSES, isMembership, isSubscriptionId, stripeGet, type Subscr
 import QRCode from 'qrcode'
 import { MemberCard } from '@/components/membership/member-card'
 import { SITE_URL } from '@/lib/constants'
+import { activePartners } from '@/lib/db'
 
 export const metadata: Metadata = {
   title: 'Member Card',
@@ -27,6 +28,8 @@ export default async function MemberCardPage({ params }: { params: Promise<{ id:
     year: 'numeric',
   })
 
+  // Online-only discounts (e.g. Guest Ready) are shown as codes, members only.
+  const codes = active ? (await activePartners()).filter((p) => p.code) : []
   const qr = await QRCode.toString(`${SITE_URL}/member/${id}/scan`, { type: 'svg', margin: 0 })
 
   return (
@@ -40,6 +43,24 @@ export default async function MemberCardPage({ params }: { params: Promise<{ id:
             <span className="block font-semibold text-dark">At a partner spot?</span>
             Let staff scan this code to confirm your membership.
           </p>
+        </div>
+      )}
+      {codes.length > 0 && (
+        <div className="w-full max-w-sm rounded-3xl bg-white p-5 shadow-md">
+          <p className="mb-3 font-semibold">Online member codes</p>
+          <ul className="space-y-3">
+            {codes.map((p) => (
+              <li key={p.name} className="flex items-center justify-between gap-4">
+                <span className="text-sm">
+                  <span className="block font-semibold">{p.name}</span>
+                  <span className="block text-muted">{p.deal}</span>
+                </span>
+                <span className="shrink-0 rounded-lg bg-cream px-3 py-1.5 font-mono text-sm font-semibold tracking-wider select-all">
+                  {p.code}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </section>

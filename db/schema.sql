@@ -8,6 +8,8 @@ create table if not exists partners (
   pin text not null unique,
   created_at timestamptz not null default now()
 );
+-- Partner details (category, deal, online code, order, visibility) are added
+-- by db/002-partner-details.sql, which also fills them in for the launch list.
 
 create table if not exists redemptions (
   id serial primary key,
