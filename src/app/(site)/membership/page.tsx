@@ -4,6 +4,7 @@ import { ArrowRight, BatteryFull, Check, SignalHigh, Wifi } from 'lucide-react'
 import { ScrollReveal } from '@/components/ui/scroll-reveal'
 import { CtaMotionLink } from '@/components/ui/cta-hover'
 import { MemberCard } from '@/components/membership/member-card'
+import { activePartners } from '@/lib/db'
 
 // Stripe Payment Link for the €25/month subscription (Lync Events LLC account)
 const CHECKOUT_URL = 'https://buy.stripe.com/fZu7sK87Yb8Y6dTeQa2Ry0j'
@@ -15,25 +16,6 @@ const perks = [
   { title: '10–20% off partner stores', body: 'Member discounts at our partners, listed below.' },
   { title: '€50 off housing', body: 'Money off your booking with our partner Student Housing Abroad.' },
   { title: 'Madrid Start Pack', body: 'Our guide to settling into Madrid, from neighbourhoods to your first week.' },
-]
-
-// Member discounts as Rebecca listed them. Codes go to members privately, not here.
-const partners = [
-  { name: 'LYNC events', category: 'Events', deal: '15% off all LYNC events' },
-  { name: 'Madrid Community Acupuncture', category: 'Acupuncture', deal: '2-for-1 (bring a friend) and no first-visit fee' },
-  { name: 'Epico Café', category: 'Coffee', deal: '10% off' },
-  { name: 'Masamune', category: 'Coffee', deal: '10% off' },
-  { name: 'OBE', category: 'Café', deal: '10% off' },
-  { name: 'Brod Bakery', category: 'Bakery', deal: '10% off' },
-  { name: 'Ana Hache', category: 'Nails, lashes, brows', deal: '15% off' },
-  { name: 'Amazonia Estética', category: 'Massages & beauty', deal: '15% off' },
-  { name: 'Laser Natura', category: 'Laser hair removal', deal: '10% off' },
-  { name: 'BFF Barre', category: 'Barre classes', deal: '10% off, or 2 classes for €33' },
-  { name: 'Ventura', category: 'Events & parties', deal: '10% off' },
-  { name: 'Student Housing Abroad', category: 'Housing', deal: '€50 off' },
-  { name: 'Intellete', category: 'Visa & study abroad', deal: '10% off' },
-  { name: 'IE Navigator Blueprint', category: 'Guide', deal: '€20 off' },
-  { name: 'Guest Ready', category: 'Travel', deal: '10% off apartments in Portugal, France, Spain, the UK and Dubai' },
 ]
 
 export const metadata: Metadata = {
@@ -55,7 +37,13 @@ function JoinButton({ className }: { className: string }) {
   )
 }
 
-export default function MembershipPage() {
+// Partners come from the database; Rebecca adds them at /admin/scans,
+// which also refreshes this page right away.
+export const revalidate = 300
+
+export default async function MembershipPage() {
+  const partners = await activePartners()
+
   return (
     <>
       <section className="relative flex h-[70vh] min-h-[480px] items-end">
@@ -150,29 +138,31 @@ export default function MembershipPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-4xl px-5 sm:px-8">
-          <ScrollReveal>
-            <h2 className="mb-4 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
-              Partner Discounts
-            </h2>
-            <p className="mx-auto mb-10 max-w-xl text-center text-lg text-muted">
-              Living in Madrid? Stop guessing where to go. These are the spots LYNC has personally vetted, tested, and certified 📍
-            </p>
-          </ScrollReveal>
-          <ul className="divide-y divide-border rounded-2xl border border-border bg-white">
-            {partners.map((p) => (
-              <li key={p.name} className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-                <span>
-                  <span className="block font-semibold">{p.name}</span>
-                  <span className="block text-xs uppercase tracking-wider text-muted">{p.category}</span>
-                </span>
-                <span className="text-sm text-muted sm:text-right">{p.deal}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {partners.length > 0 && (
+        <section className="py-16 md:py-24">
+          <div className="mx-auto max-w-4xl px-5 sm:px-8">
+            <ScrollReveal>
+              <h2 className="mb-4 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
+                Partner Discounts
+              </h2>
+              <p className="mx-auto mb-10 max-w-xl text-center text-lg text-muted">
+                Living in Madrid? Stop guessing where to go. These are the spots LYNC has personally vetted, tested, and certified 📍
+              </p>
+            </ScrollReveal>
+            <ul className="divide-y divide-border rounded-2xl border border-border bg-white">
+              {partners.map((p) => (
+                <li key={p.name} className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                  <span>
+                    <span className="block font-semibold">{p.name}</span>
+                    <span className="block text-xs uppercase tracking-wider text-muted">{p.category}</span>
+                  </span>
+                  <span className="text-sm text-muted sm:text-right">{p.deal}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       <section className="bg-lync py-14 md:py-20">
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
