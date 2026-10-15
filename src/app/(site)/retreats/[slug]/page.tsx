@@ -494,6 +494,31 @@ export default async function RetreatDetailPage({ params }: Props) {
                         </li>
                       ))}
                     </ul>
+
+                    {(room.depositUrl || room.fullUrl) && (
+                      <div className="flex flex-col gap-3">
+                        {room.depositUrl && (
+                          <a
+                            href={room.depositUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-full bg-lync px-6 py-3 text-center font-semibold text-white transition-shadow hover:shadow-md"
+                          >
+                            Pay deposit
+                          </a>
+                        )}
+                        {room.fullUrl && (
+                          <a
+                            href={room.fullUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-full border border-border px-6 py-3 text-center font-semibold text-dark transition-all hover:border-lync/30 hover:shadow-sm"
+                          >
+                            Pay in full
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </ScrollReveal>
               ))}

@@ -1,4 +1,4 @@
-import type { Retreat } from '@/data/retreats'
+import type { Retreat, RoomOption } from '@/data/retreats'
 import type { BlogPost } from '@/data/blog-posts'
 import { client } from './client'
 import { urlFor } from './image'
@@ -35,10 +35,12 @@ function mapSanityRetreat(doc: any): Retreat {
     dates: doc.dates ?? '',
     duration: doc.duration ?? '',
     groupSize: doc.groupSize ?? '',
-    pricing: (doc.pricing ?? []).map((p: { type: string; price: string; perks: string[] }) => ({
+    pricing: (doc.pricing ?? []).map((p: RoomOption) => ({
       type: p.type ?? '',
       price: p.price ?? '',
       perks: p.perks ?? [],
+      depositUrl: p.depositUrl ?? undefined,
+      fullUrl: p.fullUrl ?? undefined,
     })),
     depositNote: doc.depositNote ?? '',
     itinerary: (doc.itinerary ?? []).map((d: { day: number; emoji: string; title: string; highlights: string[] }) => ({

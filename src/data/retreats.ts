@@ -24,6 +24,9 @@ export interface RoomOption {
   type: string
   price: string
   perks: string[]
+  /** Stripe payment links; a missing one hides its button. */
+  depositUrl?: string
+  fullUrl?: string
 }
 
 export interface Retreat {
