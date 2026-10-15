@@ -108,6 +108,18 @@ export const retreat = defineType({
               type: 'array',
               of: [{ type: 'string' }],
             }),
+            defineField({
+              name: 'depositUrl',
+              title: 'Deposit payment link',
+              type: 'url',
+              description: 'Stripe payment link for the deposit. Leave empty to hide the button.',
+            }),
+            defineField({
+              name: 'fullUrl',
+              title: 'Pay in full link',
+              type: 'url',
+              description: 'Stripe payment link for the full price. Leave empty to hide the button.',
+            }),
           ],
           preview: {
             select: { title: 'type', subtitle: 'price' },
