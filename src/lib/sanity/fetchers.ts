@@ -65,11 +65,11 @@ function mapSanityRetreat(doc: any): Retreat {
       hero: imageToUrl(doc.images?.hero),
       intro: imageToUrl(doc.images?.intro),
       card: imageToUrl(doc.images?.card) || imageToUrl(doc.images?.hero),
-      bento: (doc.images?.bento ?? []).map(imageToUrl),
+      bento: (doc.images?.bento ?? []).map(imageToUrl).filter(Boolean),
       slideshow: (doc.images?.slideshow ?? []).map((img: { alt?: string }) => ({
         src: imageToUrl(img),
         alt: img.alt ?? '',
-      })),
+      })).filter((img: { src: string }) => img.src),
     },
     founderStory: doc.founderStory ?? '',
     founderAttribution: doc.founderAttribution ?? '',
