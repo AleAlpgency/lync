@@ -1,52 +1,30 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight, Star } from 'lucide-react'
 import { ScrollReveal } from '@/components/ui/scroll-reveal'
-import SpotlightCard from '@/components/ui/spotlight-card'
-import { CtaMotionLink } from '@/components/ui/cta-hover'
-import { HighlightStroke } from '@/components/ui/highlight-stroke'
-import {
-  features,
-  roomTypes,
-  amenities,
-  exclusiveOffer,
-} from '@/data/accommodations'
-import { CopyPromoCode } from './copy-promo-code'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Collegiate Madrid — Premium Student Living | LYNC' },
+  title: { absolute: 'Student Housing Abroad | LYNC' },
   description:
-    'Exclusive student accommodation in the heart of Madrid. Private studios, rooftop terrace, gym, cinema room, and an exclusive €200 LYNC discount.',
+    'Verified student housing across Europe through our partner Student Housing Abroad, with $50 off your booking fee for the LYNC community.',
   openGraph: {
-    images: [{ url: '/brand/COLLEGIATE/hero.avif', width: 1920, height: 800, alt: 'Collegiate Madrid' }],
+    images: [{ url: '/brand/SHA/florence.webp', alt: 'Florence at sunset' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Collegiate Madrid — Premium Student Living | LYNC',
-    description: 'Exclusive student accommodation in the heart of Madrid. Private studios, world-class amenities, and an exclusive LYNC discount.',
-    images: [{ url: '/brand/COLLEGIATE/hero.avif', alt: 'Collegiate Madrid' }],
+    title: 'Student Housing Abroad | LYNC',
+    description: 'Verified student housing across Europe, with $50 off your booking fee for the LYNC community.',
+    images: [{ url: '/brand/SHA/florence.webp', alt: 'Florence at sunset' }],
   },
 }
 
-const tabs = [
-  { key: 'madrid', label: 'In Madrid', sub: 'Collegiate', href: '/accommodations' },
-  { key: 'abroad', label: 'Across Europe', sub: 'Student Housing Abroad', href: '/accommodations?tab=abroad' },
-]
-
-export default async function AccommodationsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ tab?: string }>
-}) {
-  const abroad = (await searchParams).tab === 'abroad'
+export default function AccommodationsPage() {
   return (
     <>
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative flex h-[70vh] min-h-[480px] items-end">
         <Image
-          src={abroad ? '/brand/SHA/florence.webp' : '/brand/COLLEGIATE/hero.avif'}
-          alt={abroad ? 'Florence at sunset' : 'Collegiate Madrid, city skyline'}
+          src="/brand/SHA/florence.webp"
+          alt="Florence at sunset"
           fill
           priority
           className="object-cover"
@@ -58,300 +36,60 @@ export default async function AccommodationsPage({
             <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-white/70">
               Accommodations
             </p>
-            {abroad ? (
-              <>
-                <h1 className="mb-3 font-display text-5xl font-semibold uppercase tracking-normal text-white md:text-7xl">
-                  Student Housing Abroad
-                </h1>
-                <p className="mb-5 max-w-xl text-lg text-white/80 md:text-xl">
-                  Verified student housing across Europe, $50 off for LYNC
-                </p>
-              </>
-            ) : (
-              <>
-                <h1 className="mb-3 flex items-center gap-4 font-display text-5xl font-semibold uppercase tracking-normal text-white md:text-7xl">
-                  Collegiate Madrid
-                  <Image
-                    src="/brand/COLLEGIATE/icon.png"
-                    alt="Collegiate logo"
-                    width={64}
-                    height={64}
-                    className="inline-block drop-shadow-lg"
-                  />
-                </h1>
-                <p className="mb-5 max-w-xl text-lg text-white/80 md:text-xl">
-                  Premium Student Living in the Heart of Madrid
-                </p>
-
-                {/* Rating badge */}
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur-sm">
-                  <div className="flex gap-0.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        size={16}
-                        className="fill-amber-400 text-amber-400"
-                      />
-                    ))}
-                  </div>
-                  <span className="text-sm font-semibold text-white">4.9</span>
-                  <span className="text-sm text-white/60">(5,307 reviews)</span>
-                </div>
-              </>
-            )}
-
-            {/* Tab switch: Madrid (Collegiate) vs the rest of Europe (SHA partner) */}
-            <nav aria-label="Accommodation type" className="mt-8 flex w-full max-w-xl gap-1 rounded-full bg-white/15 p-1 backdrop-blur-sm">
-              {tabs.map((t) => {
-                const active = (t.key === 'abroad') === abroad
-                return (
-                  <Link
-                    key={t.key}
-                    href={t.href}
-                    scroll={false}
-                    aria-current={active ? 'page' : undefined}
-                    className={`flex-1 rounded-full px-4 py-2.5 text-center transition-colors ${active ? 'bg-white text-dark' : 'text-white hover:bg-white/10'}`}
-                  >
-                    <span className="block text-sm font-semibold">{t.label}</span>
-                    <span className={`block text-xs ${active ? 'text-muted' : 'text-white/60'}`}>{t.sub}</span>
-                  </Link>
-                )
-              })}
-            </nav>
+            <h1 className="mb-3 font-display text-5xl font-semibold uppercase tracking-normal text-white md:text-7xl">
+              Student Housing Abroad
+            </h1>
+            <p className="mb-5 max-w-xl text-lg text-white/80 md:text-xl">
+              Verified student housing across Europe, $50 off for LYNC
+            </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {!abroad && (
-        <>
-          {/* ── Intro ─────────────────────────────────────── */}
-          <section className="bg-cream py-16 md:py-24">
-            <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
-              <ScrollReveal>
-                <h2 className="mb-6 font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
-                  Your Home in{' '}
-                  <span className="relative inline-block">
-                    Madrid
-                    <HighlightStroke
-                      className="absolute -bottom-1 left-0 w-full"
-                      strokeWidth={5}
-                    />
-                  </span>
-                </h2>
-                <p className="text-lg leading-relaxed text-muted md:text-xl">
-                  Collegiate Madrid offers fully furnished private studios with
-                  world-class amenities, a vibrant resident community, and an
-                  unbeatable central location. It&apos;s not just a place to stay
-                  — it&apos;s where your Madrid life begins.
-                </p>
-              </ScrollReveal>
-            </div>
-          </section>
-
-          {/* ── Features Grid ─────────────────────────────── */}
-          <section className="py-16 md:py-24">
-            <div className="mx-auto max-w-6xl px-5 sm:px-8">
-              <ScrollReveal>
-                <h2 className="mb-14 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
-                  What&apos;s Included
-                </h2>
-              </ScrollReveal>
-
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {features.map((f, i) => (
-                  <ScrollReveal key={f.title} delay={i * 0.06}>
-                    <SpotlightCard className="h-full rounded-2xl border border-border bg-white p-6">
-                      <span className="mb-3 block text-3xl">{f.emoji}</span>
-                      <h3 className="mb-2 font-display text-lg font-semibold uppercase tracking-normal">
-                        {f.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-muted">
-                        {f.description}
-                      </p>
-                    </SpotlightCard>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* ── Exclusive Offer Banner ────────────────────── */}
-          <section className="bg-lync py-14 md:py-20">
-            <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
-              <ScrollReveal>
-                <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-white/70">
-                  Exclusive Partner Discount
-                </p>
-                <h2 className="mb-4 font-display text-4xl font-semibold uppercase tracking-normal text-white md:text-5xl">
-                  {exclusiveOffer.discount}
-                </h2>
-                <p className="mx-auto mb-8 max-w-2xl text-lg text-white/80">
-                  {exclusiveOffer.description}
-                </p>
-
-                <div className="mb-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                  <CopyPromoCode code={exclusiveOffer.promoCode} />
-                </div>
-
-                <CtaMotionLink
-                  href={exclusiveOffer.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-semibold text-dark transition-colors hover:bg-cream"
-                >
-                  {exclusiveOffer.cta} <ArrowRight size={20} />
-                </CtaMotionLink>
-              </ScrollReveal>
-            </div>
-          </section>
-
-          {/* ── Room Types ────────────────────────────────── */}
-          <section className="bg-cream py-16 md:py-24">
-            <div className="mx-auto max-w-6xl px-5 sm:px-8">
-              <ScrollReveal>
-                <h2 className="mb-14 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
-                  Room Types
-                </h2>
-              </ScrollReveal>
-
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                {roomTypes.map((room, i) => (
-                  <ScrollReveal key={room.title} delay={i * 0.1}>
-                    <div className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md">
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <Image
-                          src={room.image}
-                          alt={room.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="mb-2 font-display text-xl font-semibold uppercase tracking-normal">
-                          {room.title}
-                        </h3>
-                        <p className="mb-4 text-sm leading-relaxed text-muted">
-                          {room.description}
-                        </p>
-                        <ul className="space-y-2">
-                          {room.features.map((feat) => (
-                            <li
-                              key={feat}
-                              className="flex items-center gap-2 text-sm text-muted"
-                            >
-                              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-lync" />
-                              {feat}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* ── Communal Spaces ───────────────────────────── */}
-          <section className="py-16 md:py-24">
-            <div className="mx-auto max-w-6xl px-5 sm:px-8">
-              <ScrollReveal>
-                <h2 className="mb-14 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
-                  Communal Spaces
-                </h2>
-              </ScrollReveal>
-
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {amenities.map((a, i) => (
-                  <ScrollReveal key={a.title} delay={i * 0.08}>
-                    <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
-                      <Image
-                        src={a.image}
-                        alt={a.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
-                      <h3 className="absolute bottom-4 left-5 font-display text-lg font-semibold uppercase tracking-normal text-white">
-                        {a.title}
-                      </h3>
-                    </div>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* ── Lifestyle Banner ──────────────────────────── */}
-          <section className="relative flex h-[40vh] min-h-[320px] items-center justify-center">
-            <Image
-              src="/brand/COLLEGIATE/lifestyle.jpg"
-              alt="Collegiate Madrid community events"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-dark/50" />
-            <div className="relative z-10 mx-auto max-w-3xl px-5 text-center sm:px-8">
-              <ScrollReveal>
-                <h2 className="mb-4 font-display text-4xl font-semibold uppercase tracking-normal text-white md:text-5xl">
-                  More Than a Residence
-                </h2>
-                <p className="text-lg text-white/80 md:text-xl">
-                  From rooftop socials to cultural outings, Collegiate Madrid
-                  keeps your calendar full and your social circle growing.
-                </p>
-              </ScrollReveal>
-            </div>
-          </section>
-        </>
-      )}
-
       {/* ── Student Housing Abroad panel ──────────────── */}
-      {abroad && (
-        <section className="bg-cream py-16 md:py-24">
-          <div className="mx-auto max-w-6xl px-5 sm:px-8">
-            <ScrollReveal>
-              <h2 className="mb-4 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
-                Where Are You Headed?
-              </h2>
-              <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-muted">
-                Studying beyond Madrid? Our partner Student Housing Abroad has
-                verified housing across Europe, with $50 off your booking fee
-                for the LYNC community.
-              </p>
-            </ScrollReveal>
-            <div className="mb-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2">
-              {[
-                { src: 'madrid', city: 'Madrid', span: 'col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto' },
-                { src: 'rome', city: 'Rome', span: 'aspect-[4/3]' },
-                { src: 'florence', city: 'Florence', span: 'aspect-[4/3]' },
-                { src: 'milan', city: 'Milan', span: 'aspect-[4/3]' },
-                { src: 'cinque-terre', city: 'Cinque Terre', span: 'aspect-[4/3]' },
-              ].map((c, i) => (
-                <ScrollReveal key={c.src} delay={i * 0.06} className={`group relative overflow-hidden rounded-2xl ${c.span}`}>
-                  <Image
-                    src={`/brand/SHA/${c.src}.webp`}
-                    alt={c.city}
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
-                  <h3 className="absolute bottom-4 left-5 font-display text-lg font-semibold uppercase tracking-normal text-white">
-                    {c.city}
-                  </h3>
-                </ScrollReveal>
-              ))}
-            </div>
-            {/* Partner embed: its CSP only allows lyncevents.com, so it stays blank on previews and localhost. No sandbox attribute, the buttons need popups. */}
-            <iframe
-              title="Find student housing abroad"
-              src="https://www.studenthousingabroad.com/embed/affiliate/LyncEvents"
-              className="h-[1320px] w-full border-0 max-[640px]:h-[1400px] max-[360px]:h-[1580px]"
-            />
+      <section className="bg-cream py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <ScrollReveal>
+            <h2 className="mb-4 text-center font-display text-4xl font-semibold uppercase tracking-normal md:text-5xl">
+              Where Are You Headed?
+            </h2>
+            <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-muted">
+              Studying abroad? Our partner Student Housing Abroad has
+              verified housing across Europe, with $50 off your booking fee
+              for the LYNC community.
+            </p>
+          </ScrollReveal>
+          <div className="mb-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2">
+            {[
+              { src: 'madrid', city: 'Madrid', span: 'col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto' },
+              { src: 'rome', city: 'Rome', span: 'aspect-[4/3]' },
+              { src: 'florence', city: 'Florence', span: 'aspect-[4/3]' },
+              { src: 'milan', city: 'Milan', span: 'aspect-[4/3]' },
+              { src: 'cinque-terre', city: 'Cinque Terre', span: 'aspect-[4/3]' },
+            ].map((c, i) => (
+              <ScrollReveal key={c.src} delay={i * 0.06} className={`group relative overflow-hidden rounded-2xl ${c.span}`}>
+                <Image
+                  src={`/brand/SHA/${c.src}.webp`}
+                  alt={c.city}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
+                <h3 className="absolute bottom-4 left-5 font-display text-lg font-semibold uppercase tracking-normal text-white">
+                  {c.city}
+                </h3>
+              </ScrollReveal>
+            ))}
           </div>
-        </section>
-      )}
+          {/* Partner embed: its CSP only allows lyncevents.com, so it stays blank on previews and localhost. No sandbox attribute, the buttons need popups. */}
+          <iframe
+            title="Find student housing abroad"
+            src="https://www.studenthousingabroad.com/embed/affiliate/LyncEvents"
+            className="h-[1320px] w-full border-0 max-[640px]:h-[1400px] max-[360px]:h-[1580px]"
+          />
+        </div>
+      </section>
     </>
   )
 }
